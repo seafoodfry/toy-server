@@ -33,3 +33,15 @@ HTTP/1.1 400 Bad Request
 ```
 
 However, the server accepts both POST and PUT requests.
+
+
+## Development
+
+We have some cool scripts in the [./hack](./hack) directory to improve the
+quality of your code.
+To run them do:
+```
+make validate
+```
+
+
