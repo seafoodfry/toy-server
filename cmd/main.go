@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	log.SetOutput(os.Stdout)
 	log.SetLevel(log.DebugLevel)
 
 	command := app.NewServerCommand()
