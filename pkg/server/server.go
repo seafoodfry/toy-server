@@ -8,9 +8,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/gorilla/mux"
 )
 
 const (
@@ -28,20 +29,16 @@ const (
 //  3. We want to create a channel we can use for graceful termination of our
 //  app and a routine that can help us gracefully shutdown our server.
 func Init() (*http.Server, <-chan struct{}) {
-	mux := http.NewServeMux()
-	//mux.HandleFunc("/api/echo", echoHandler)
-	mux.Handle("/metrics", promhttp.Handler())
+	handler := mux.NewRouter()
+	handler.HandleFunc("/api/echo", echoHandler).Methods("POST", "PUT").Headers("Content-Type", "application/json")
+	handler.Handle("/metrics", promhttp.Handler())
 
 	// We want explicit timeuts to prevent connections from sticking around
 	// indefinetely. See
 	// https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/
 	server := &http.Server{
-		Addr: ServerAddress,
-		// TODO: move tracerMiddleware to only wrap our "echoHandler": our server
-		// only exposes the /api/echo and /metrics endpoint, we only want to track
-		// calls to the former because it simplifies the code (we can work with our
-		// "tracing middleware" and our metrics from the same place.
-		Handler:      tracerMiddleware(mux),
+		Addr:         ServerAddress,
+		Handler:      tracerMiddleware(handler),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
