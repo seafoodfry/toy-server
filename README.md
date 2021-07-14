@@ -44,4 +44,9 @@ To run them do:
 make validate
 ```
 
-
+If you want to run the app, you can either compile it and run it or you can run
+```
+make run
+```
+This will build a container image for the app, and run it while exposing port
+8080 for traffic.
