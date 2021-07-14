@@ -7,12 +7,9 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-export GO111MODULE=on
-
 # Install golangci-lint
 echo "Installing golangci-lint"
 curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.41.1
 
 echo "running golangci-lint..."
-./bin/golangci-lint run \
-  --timeout 2m
+./bin/golangci-lint run
