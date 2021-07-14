@@ -11,3 +11,4 @@ validate:
 	./hack/verify-gofmt.sh
 	./hack/verify-golangci.sh
 	go mod tidy
+	go test ./...

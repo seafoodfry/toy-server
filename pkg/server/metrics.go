@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	// requestsTotal keeps track of all of the requests made to our "cho"
+	// requestsTotal keeps track of all of the requests made to our "echo"
 	// endpoint.
 	requestsTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{

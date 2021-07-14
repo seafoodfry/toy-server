@@ -1,2 +1,5 @@
 # This is created when runing ./hack/verify-golangci.sh or "make format".
 bin/
+
+*.swo
+*.swp

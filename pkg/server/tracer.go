@@ -13,10 +13,8 @@ package server
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/felixge/httpsnoop"
-	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -27,9 +25,6 @@ func tracerMiddleware(h http.Handler) http.Handler {
 		// If we call the handler this way we can obtain some basic metrics that we
 		// can log.
 		m := httpsnoop.CaptureMetrics(h, w, r)
-
-		// Keep track of the request in the metrics.
-		requestsTotal.With(prometheus.Labels{"code": strconv.Itoa(m.Code)}).Inc()
 
 		// And keep track of the request in the logs.
 		log.WithFields(log.Fields{
