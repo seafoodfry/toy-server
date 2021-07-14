@@ -12,7 +12,7 @@ The response will be the body of the request sent with the field `echoed:
 true`.
 For example, the request
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"user": "abc", "data": "abc-123"}' http:localhost:8080/api/echo
+curl -H "Content-Type: application/json" -X POST -d '{"user": "abc", "data": "abc-123"}' http://localhost:8080/api/echo
 ```
 
 Will result in the response
