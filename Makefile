@@ -1,6 +1,5 @@
 
-all:
-	echo hello
+all: run
 
 run:
 	docker build -t toy-server .
